@@ -31,10 +31,6 @@ const config: Config = {
     locales: ['en'],
   },
 
-  // plugins: [
-  //   'docusaurus-plugin-redactle',
-  // ],
-
   presets: [
     [
       'classic',
