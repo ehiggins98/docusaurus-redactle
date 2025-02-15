@@ -1,5 +1,8 @@
 {
     "compilerOptions": {
-        "strict": true
+        "strict": true,
+        "esModuleInterop": true,
+        "composite": true,
+        "outDir": "build"
     }
 }

@@ -1,3 +1,6 @@
 {
-    "name": "docusaurus-plugin-redactle"
+    "name": "docusaurus-plugin-redactle",
+    "devDependencies": {
+        "@docusaurus/types": "^3.7.0"
+    }
 }
