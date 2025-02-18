@@ -3,6 +3,7 @@
         "strict": true,
         "esModuleInterop": true,
         "composite": true,
-        "outDir": "build"
+        "outDir": "build",
+        "jsx": "react"
     }
 }
