@@ -4,6 +4,6 @@
         "esModuleInterop": true,
         "composite": true,
         "outDir": "build",
-        "jsx": "react"
+        "jsx": "react",
     }
 }

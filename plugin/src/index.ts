@@ -27,7 +27,7 @@ export default async function plugin(context: LoadContext, options: unknown): Pr
     async loadContent() {
       const docsDir = path.join(context.siteDir, "docs");
       const test = await getAllMarkdownContent(docsDir);
-      return readFiles(test);
+      return readFiles(test.filter((file) => file.endsWith('.md') || file.endsWith('.mdx')));
     },
     async contentLoaded({content, actions}) {
       if (!content || Object.keys(content).length === 0) return;

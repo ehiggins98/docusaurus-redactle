@@ -2,5 +2,10 @@
     "name": "docusaurus-plugin-redactle",
     "devDependencies": {
         "@docusaurus/types": "^3.7.0"
+    },
+    "dependencies": {
+        "@types/canvas-confetti": "^1.9.0",
+        "canvas-confetti": "^1.9.3",
+        "marked": "^15.0.7"
     }
 }
