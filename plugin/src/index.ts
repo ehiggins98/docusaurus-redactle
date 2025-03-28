@@ -3,12 +3,6 @@ import path from 'path';
 import fs from 'fs';
 import glob from 'glob';
 
-type Content = {
-  filename: string;
-  filepath: string;
-  content: string;
-}
-
 function getAllMarkdownContent(docsDir: string) {
   return new Promise<string[]>((resolve) => {
     glob(path.join(docsDir, '**'), (err, matches) => {

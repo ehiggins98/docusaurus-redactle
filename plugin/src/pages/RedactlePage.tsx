@@ -14,14 +14,14 @@ const allWordsRegex = new RegExp(/\w+/g);
 const titleRegex = new RegExp(/^# .*$/m);
 const givenWords = ['a', 'an', 'the'];
 
-function RedactlePage(args: RedactlePageProps) {
-    const [pageNumber] = useState(Math.floor(Math.random() * (args.files.length - 1)));
+export default function RedactlePage({ files }: RedactlePageProps) {
+    const [pageNumber] =  useState(0); // useState(Math.floor(Math.random() * (args.files.length - 1)));
     const [html, setHtml] = useState<string | undefined>();
     const [revealedWords, setRevealedWords] = useState<string[]>(givenWords);
     const [guess, setGuess] = useState<string>('');
     const [errorMessage, setErrorMessage] = useState<string | undefined>();
     
-    const doc = args.files[pageNumber];
+    const doc = files[pageNumber];
 
     const processedDoc = useMemo(() => doc.replace(frontmatterRegex, ""), [doc]);
 
@@ -70,7 +70,7 @@ function RedactlePage(args: RedactlePageProps) {
             if (solved || revealedWords.includes(match[0].toLowerCase())) {
                 stringParts.push(match[0]);
             } else {
-                stringParts.push("█".repeat(match[0].length));
+                stringParts.push(`<span class=\"redacted-word\" onClick="this.className=!this.className.includes('clicked') ? 'redacted-word clicked' : 'redacted-word'">${"█".repeat(match[0].length)}<span>${match[0].length}</span></span>`);
             }
 
             text = text.substring(match.index + match[0].length);
@@ -87,27 +87,12 @@ function RedactlePage(args: RedactlePageProps) {
             codespan({ text }): string {
                 return `<code>${maybeRedact(text)}</code>`;
             },
-            text({ text, type }): string {
+            text({ text }): string {
                 return maybeRedact(text);
             },
-            // blockquote(token: Tokens.Blockquote): string
-            // html(token: Tokens.HTML | Tokens.Tag): string
-            heading({ tokens, depth }): string {
-                const text = this.parser.parseInline(tokens);
-
-                return `
-                        <h${depth}>
-                        ${text}
-                        </h${depth}>`;
+            link({ text }): string {
+                return `<a href=\"🤔\">${maybeRedact(text)}</a>`;
             },
-            // hr(token: Tokens.Hr): string
-            // list(token: Tokens.List): string
-            // listitem(token: Tokens.ListItem): string
-            // checkbox(token: Tokens.Checkbox): string
-            // paragraph(token: Tokens.Paragraph): string
-            // table(token: Tokens.Table): string
-            // tablerow(token: Tokens.TableRow): string
-            // tablecell(token: Tokens.TableCell): string
         };
 
         marked.use({ renderer });
@@ -171,4 +156,3 @@ function RedactlePage(args: RedactlePageProps) {
     </div>;
 }
 
-export default RedactlePage;

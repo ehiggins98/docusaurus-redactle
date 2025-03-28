@@ -27,3 +27,23 @@
     flex-direction: row;
     justify-content: space-between;
 }
+
+.redacted-word {
+    position: relative;
+    color: #929292;
+    z-index: 0;
+    cursor: pointer;
+}
+
+.redacted-word > span {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 1;
+    color: #262626;
+    visibility: hidden;
+}
+
+.redacted-word.clicked > span {
+    visibility: visible;
+}
