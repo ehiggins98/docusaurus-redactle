@@ -32,7 +32,12 @@ const config: Config = {
   },
 
   plugins: [
-    plugin,
+    [
+      plugin,
+      {
+        contentDirectory: '/Users/erichiggins/docusaurus-redactle/test/docs',
+      }
+    ]
   ],
 
   presets: [

@@ -1,6 +1,8 @@
 import React, { FormEvent, useCallback, useEffect, useMemo, useState } from "react";
 import { marked, type RendererObject } from 'marked';
 import confetti from 'canvas-confetti';
+import NavBar from "@theme/Navbar";
+import LayoutProvider from "@theme/Layout/Provider";
 
 import './styles.css';
 
@@ -143,16 +145,21 @@ export default function RedactlePage({ files }: RedactlePageProps) {
         return errorMessage;
     }
 
-    return <div className="layout">
-        <div className="content">
-            <div dangerouslySetInnerHTML={{__html: html ?? 'Loading...'}}></div>
-        </div>
-        <div className="sidebar">
-            <form onSubmit={enterGuess}>
-                <input disabled={solved} value={guess} onChange={(ev) => setGuess(ev.target.value)} />
-                {revealedWords.slice().reverse().filter((word) => !givenWords.includes(word)).map((word) => <div className="word-row"><span>{word}</span><span>{wordCounts.get(word) ?? 0}</span></div>)}
-            </form>
-        </div>
+    return <div>
+        <LayoutProvider>
+            <NavBar />
+            <div className="layout">
+                <div className="content">
+                    <div dangerouslySetInnerHTML={{__html: html ?? 'Loading...'}}></div>
+                </div>
+                <div className="sidebar">
+                    <form onSubmit={enterGuess}>
+                        <input disabled={solved} value={guess} onChange={(ev) => setGuess(ev.target.value)} />
+                        {revealedWords.slice().reverse().filter((word) => !givenWords.includes(word)).map((word) => <div className="word-row"><span>{word}</span><span>{wordCounts.get(word) ?? 0}</span></div>)}
+                    </form>
+                </div>
+            </div>
+        </LayoutProvider>
     </div>;
 }
 
